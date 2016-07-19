@@ -1,0 +1,9 @@
+[LOG]
+pathOutFile=NewsScaper
+pathErrFile=NewsScaper.error
+
+[DB]
+host = YOUR_HOST
+user = YOUR_USER
+port = YOUR_PORT
+password = YOURPASSWORD
