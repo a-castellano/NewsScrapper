@@ -1,3 +1,5 @@
 *
 !.gitignore
-!scraper.conf.example
+!scrapper.conf.example
+!website1.example.com.conf
+!website2.example.com.conf

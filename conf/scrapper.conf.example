@@ -1,0 +1,13 @@
+[LOG]
+pathOutFile = NewsScaper
+pathErrFile = NewsScaper.error
+
+[DB]
+host = YOUR_HOST
+user = YOUR_USER
+port = YOUR_PORT
+password = YOUR_PASSWORD
+database = YOUR_DATABASE_NAME
+
+[WEBSITES]
+websites = website1.example.com website2.example.com
