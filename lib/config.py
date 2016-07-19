@@ -74,7 +74,6 @@ class Config:
             if section_counter == 0: # There are no sections configured, configuration files are not correct, abort
                 print "There is no sections in configuration file {} - Aborting".format( file )
                 return False
-            print self.websitesConf
         return True
 
 
