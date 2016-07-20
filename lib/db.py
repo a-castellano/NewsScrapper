@@ -7,7 +7,7 @@ import sys
 
 class DB:
 
-    def __init__(self, cfg):
+    def __init__( self, cfg ):
         self.log = cfg.log
         self.logError = cfg.logError
 
@@ -28,8 +28,47 @@ class DB:
         filterwarnings('ignore', category = MySQLdb.Warning)
         self.log.info( "[ Scrapper - DB ] - [ Conection to database was successful ]" )
 
+##############################################################################################################
+
     def createTableIfNotExist( self, tableName ):
 
         sql_create_table = "CREATE TABLE IF NOT EXISTS {} ( id INT(22) NOT NULL AUTO_INCREMENT, title VARCHAR(400), description VARCHAR(800), url VARCHAR(500) NOT NULL, image_url VARCHAR(500), video_url VARCHAR(500), content TEXT, slug VARCHAR(200), keywords VARCHAR(200), date DATETIME, PRIMARY KEY (id) )".format(tableName)
 
         self.cursor.execute( sql_create_table )
+
+##############################################################################################################
+
+    def getURLs( self, tableName ):
+
+        self.log.info( "[ Scrapper - DB ] - [ Getting url's from {} ]".format( tableName ) )
+        query = "SELECT url FROM {} ;".format( tableName )
+        self.cursor.execute( query )
+        currentURLs = self.cursor.fetchall()
+
+        return currentURLs
+
+##############################################################################################################
+
+    def addData( self, tableName, data ):
+
+        # Data is an array of dicts
+        for item in data:
+            self.log.info( "[ Scrapper - DB - {} ] - [ Inserting {} ]".format( tableName, item['title'] ) )
+
+            try:
+
+                insert = 'INSERT INTO {} ( title, description, url, image_url, video_url, content, slug, keywords, date ) VALUES ( "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", NOW() ) '.format( tableName, item['title'], item['description'], item['url'], item['image_url'], item['video_url'], it    em['content'], item['slug'], item['keywords'] )
+                self.cursor.execute( insert )
+
+            except:
+
+                try: # avoid " problem
+                    insert = 'INSERT INTO {} ( title, description, url, image_url, video_url, content, slug, keywords, date ) VALUES ( \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', \'{}\', NOW() ) '.format( tableName, item['title'], item['description'], item['url'], item['image_url'    ], item['video_url'], item['content'], item['slug'], item['keywords'] )
+                    self.cursor.execute( insert )
+
+                except:
+                    insert = 'INSERT INTO {} ( url , date ) VALUES ( "{}", NOW() ) '.format( self.table, item['url'] )
+                    self.cursor.execute( insert )
+                    self.log.info( "[ Scrapper - DB - {} ] - [ Broken Item ]".format( tableName ) )
+
+##############################################################################################################
