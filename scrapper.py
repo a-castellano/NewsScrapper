@@ -3,6 +3,7 @@
 
 
 from lib.config import Config
+from lib.db import DB
 
 def main():
 
@@ -29,7 +30,18 @@ def main():
             cfg.log.info( "[ Scrapper ] - [ \t\turl -> \"{}\" ]".format( cfg.websitesConf[website][section][0] ) )
             cfg.log.info( "[ Scrapper ] - [ \t\tslug -> \"{}\" ]".format( cfg.websitesConf[website][section][1] ) )
 
-    
+
+    db = DB(cfg)
+
+    for website in cfg.websitesConf:
+        cfg.log.info( "[ Scrapper ] - [ Looking for \"{}\" sections ]".format( website ) )
+        for section in cfg.websitesConf[website]:
+            cfg.log.info( "[ Scrapper ] - [ Accesing to \"{}\" table ]".format( section ) )
+            db.createTableIfNotExist( section )
+
+
+
+
 
 if __name__ == "__main__":
     main()
