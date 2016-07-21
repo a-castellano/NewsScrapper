@@ -21,12 +21,13 @@ from wordpress_xmlrpc.methods import media, posts
 
 class Scraper:
 
-    def __init__( self, db, wpinfo, table ):
-        self.url = ''
+    def __init__( self, db, wpinfo, table, url, slug ):
         self.items = []
         self.db = db
         self.table = table
         self.wpinfo = wpinfo
+        self.url = url
+        self.slug = slug
 
 ##############################################################################################################
 
@@ -34,5 +35,10 @@ class Scraper:
         # Last items should be the older ones
         items = list( reversed( self.items ) )
         self.db.addData( self.table, items )
+
+##############################################################################################################
+
+    def screape( self ):
+        pass
 
 ##############################################################################################################

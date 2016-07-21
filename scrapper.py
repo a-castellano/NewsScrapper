@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Alvaro Castellano Vela - 19/07/2016
 # https://github.com/a-castellano
 
@@ -10,11 +12,11 @@ def main():
     cfg = Config("conf/scrapper.conf")
 
     if (cfg.readConfig() == False):
-        print "[Main - readConfig] [Error reading config file]"
+        print( "[Main - readConfig] [Error reading config file]" )
         return
 
     if (cfg.createLog() == False):
-        print "[Main - createLog] [Error creating log files]"
+        print( "[Main - createLog] [Error creating log files]" )
         return
 
     cfg.log.info( "[ Main - readConfig ] [ Config file read sucessfully ]" )

@@ -18,11 +18,11 @@ class DB:
 
         except MySQLdb.Error , e:
             try:
-                self.logError.error("[init DB: Error connecting DB [%d]: %s]" %(e.args[0], e.args[1]))
-                print "[init DB: Error connecting DB [%d]: %s]" %(e.args[0], e.args[1])
+                self.logError.error("[init DB: Error connecting DB [{}]: {}]".format( e.args[0], e.args[1] ))
+                print ("[init DB: Error connecting DB [{}]: {}]".format( e.args[0], e.args[1] ) )
             except IndexError:
-                self.logError.error("[init DB: Error connecting DB: %s]" %(str(e)))
-                print "[init DB: Error connecting DB: %s]" %(str(e))
+                self.logError.error("[init DB: Error connecting DB: {}]".format( str(e) ))
+                print "[init DB: Error connecting DB: {}]".format( str(e) )
                 sys.exit(1)
 
         filterwarnings('ignore', category = MySQLdb.Warning)
@@ -57,7 +57,7 @@ class DB:
 
             try:
 
-                insert = 'INSERT INTO {} ( title, description, url, image_url, video_url, content, slug, keywords, date ) VALUES ( "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", NOW() ) '.format( tableName, item['title'], item['description'], item['url'], item['image_url'], item['video_url'], it    em['content'], item['slug'], item['keywords'] )
+                insert = 'INSERT INTO {} ( title, description, url, image_url, video_url, content, slug, keywords, date ) VALUES ( "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", NOW() ) '.format( tableName, item['title'], item['description'], item['url'], item['image_url'], item['video_url'], item['content'], item['slug'], item['keywords'] )
                 self.cursor.execute( insert )
 
             except:
