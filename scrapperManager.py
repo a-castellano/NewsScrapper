@@ -6,8 +6,13 @@
 
 from lib.config import Config
 from lib.db import DB
+from lib.scraper import Scraper
+import lib.scrapers
+from lib.scraperFactory import ScraperFactory
 
 def main():
+
+    scraperFactory = ScraperFactory()
 
     cfg = Config("conf/scrapper.conf")
 

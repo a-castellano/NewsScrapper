@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Alvaro Castellano Vela - 20/07/2016
 # https://github.com/a-castellano
 
@@ -16,16 +18,16 @@ class DB:
             self.database.autocommit( True )
             self.cursor = self.database.cursor()
 
-        except MySQLdb.Error , e:
+        except MySQLdb.Error as e:
             try:
-                self.logError.error("[init DB: Error connecting DB [{}]: {}]".format( e.args[0], e.args[1] ))
-                print ("[init DB: Error connecting DB [{}]: {}]".format( e.args[0], e.args[1] ) )
+                self.logError.error( "[init DB: Error connecting DB [{}]: {}]".format( e.args[0], e.args[1] ) )
+                print ( "[init DB: Error connecting DB [{}]: {}]".format( e.args[0], e.args[1] ) )
             except IndexError:
-                self.logError.error("[init DB: Error connecting DB: {}]".format( str(e) ))
-                print "[init DB: Error connecting DB: {}]".format( str(e) )
-                sys.exit(1)
+                self.logError.error( "[init DB: Error connecting DB: {}]".format( str(e) ) )
+                print ( "[init DB: Error connecting DB: {}]".format( str(e) ) )
+                sys.exit("Out")
 
-        filterwarnings('ignore', category = MySQLdb.Warning)
+        filterwarnings( 'ignore', category = MySQLdb.Warning )
         self.log.info( "[ Scrapper - DB ] - [ Conection to database was successful ]" )
 
 ##############################################################################################################

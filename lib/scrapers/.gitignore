@@ -1,0 +1,6 @@
+*
+!.gitignore
+!website1_politics.py
+!website1_economy.py
+!website2_sports.py
+!website2_science.py
