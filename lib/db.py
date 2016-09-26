@@ -12,11 +12,13 @@ class DB:
     def __init__( self, cfg ):
         self.log = cfg.log
         self.logError = cfg.logError
-
+        self.error = False
         try:
             self.database = MySQLdb.connect(host=cfg.host, port=cfg.port, user=cfg.user, passwd=cfg.password, db=cfg.database)
             self.database.autocommit( True )
             self.cursor = self.database.cursor()
+            filterwarnings( 'ignore', category = MySQLdb.Warning )
+            self.log.info( "[ Scrapper - DB  ] - [ Conection to database was successful  ]" )
 
         except MySQLdb.Error as e:
             try:
@@ -26,9 +28,13 @@ class DB:
                 self.logError.error( "[init DB: Error connecting DB: {}]".format( str(e) ) )
                 print ( "[init DB: Error connecting DB: {}]".format( str(e) ) )
                 sys.exit("Out")
+            self.error = True
 
-        filterwarnings( 'ignore', category = MySQLdb.Warning )
-        self.log.info( "[ Scrapper - DB ] - [ Conection to database was successful ]" )
+##############################################################################################################
+
+    def hasError( self ):
+
+        return self.error
 
 ##############################################################################################################
 

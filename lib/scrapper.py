@@ -3,7 +3,7 @@
 # Alvaro Castellano Vela - 20/07/2016
 # https://github.com/a-castellano
 
-class Scraper:
+class Scrapper:
 
     def __init__( self, db, wpinfo, table, url, slug ):
         self.items = []

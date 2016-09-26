@@ -3,7 +3,10 @@
 # Alvaro Castellano Vela - 21/07/2016
 # https://github.com/a-castellano
 
-from .scraper import Scraper
+import sys
+sys.path.append('../../')
+
+from lib.scrapper import Scrapper
 import codecs
 import re
 import time
@@ -21,8 +24,8 @@ from wordpress_xmlrpc.methods.users import GetUserInfo
 from wordpress_xmlrpc.compat import xmlrpc_client
 from wordpress_xmlrpc.methods import media, posts
 
-class ScraperWebsite1Politics( Scraper ):
+class ScrapperWebsite1Politics( Scrapper ):
 
     def __init__( self, db, wpinfo, table, url, slug ):
-        Scraper.__init__( self, dbinfo,wpinfo, table, url, slug )
+        Scrapper.__init__( self, dbinfo,wpinfo, table, url, slug )
 

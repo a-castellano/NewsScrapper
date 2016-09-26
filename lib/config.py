@@ -11,7 +11,7 @@ class Config:
 
     def __init__(self, fileName):
 
-        self.cfg = configparser.ConfigParser()
+        self.cfg = configparser.RawConfigParser()
         self.file = fileName
         self.pathOutFile = ''
         self.pathErrFile = ''
@@ -20,6 +20,9 @@ class Config:
         self.user = ''
         self.password = ''
         self.database = ''
+        self.wphost = ''
+        self.wpuser = ''
+        self.wppass = ''
         self.websites = []
         self.websitesConf = dict()
 
@@ -51,14 +54,14 @@ class Config:
 
                     section_counter += 1
                     name = self.cfg.get( "SECTIONS", section_name )
-                    self.websitesConf[website][name] = []
+                    self.websitesConf[website][name] = dict()
 
                     section_url = "section{}_url".format( section_counter )
                     section_slug = "section{}_slug".format( section_counter )
 
                     if self.cfg.has_option( "SECTIONS", section_url ):
                         url = self.cfg.get( "SECTIONS", section_url )
-                        self.websitesConf[website][name].append( url )
+                        self.websitesConf[website][name]["url"] = url
                     else:
                         print ( "Missing parameter \"{}\" in configuration file {}".format( section_url, file ) )
                         return False
@@ -68,7 +71,7 @@ class Config:
                     else: # There can be no slug
                         slug = ""
 
-                    self.websitesConf[website][name].append( slug )
+                    self.websitesConf[website][name]["slug"] = slug
 
                 else: # There are no more sections
                     break
@@ -128,6 +131,23 @@ class Config:
         else:
             print ( "Missing parameter \"database\" in configuration file" )
             return False
+
+        if self.cfg.has_option( "WP", "host" ):
+            self.wphost = self.cfg.get( "WP", "host" )
+        else:
+            print ( "Missing parameter \"WP host\" in configuration file" )
+            return False
+
+        if self.cfg.has_option( "WP", "user" ):
+            self.wpuser = self.cfg.get( "WP", "user" )
+        else:
+             print ( "Missing parameter \"WP user\" in configuration file" )
+             return False
+
+        if self.cfg.has_option( "WP", "password" ):
+            self.wppass = self.cfg.get( "WP", "password" )
+        else:
+            print ( "Missing parameter \"WP password\" in configuration file" )
 
         if self.cfg.has_option( "WEBSITES", "websites" ):
             self.websites = " ".join( self.cfg.get("WEBSITES", "websites").split() ).split()

@@ -9,5 +9,10 @@ port = YOUR_PORT
 password = YOUR_PASSWORD
 database = YOUR_DATABASE_NAME
 
+[WP]
+host = YOUR_WP_HOST
+user = YOUR_WP_USER
+password = YOUT_WP_PASS
+
 [WEBSITES]
 websites = website1.example.com website2.example.com
