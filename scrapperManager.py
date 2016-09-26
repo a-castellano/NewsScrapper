@@ -57,7 +57,7 @@ def main():
             cfg.log.info( "[ Scrapper  ] - [ Calling \"{}\" scrapper  ]".format( section ) )
 
             #factory -> ( type, db, wpinfo, table, url, slug  )
-            scrapperInstance = scrapperfactory.factory( db, wpinfo, section, website, cfg.websitesConf[website][section]["url"], cfg.websitesConf[website][section]["slug"] )
+            scrapperInstance = scrapperFactory.factory( db, wpinfo, section, website, cfg.websitesConf[website][section]["url"], cfg.websitesConf[website][section]["slug"] )
             print( scrapperInstance )
 
 
