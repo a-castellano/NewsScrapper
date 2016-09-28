@@ -14,7 +14,6 @@ import time
 import unicodedata
 
 from bs4 import BeautifulSoup
-from subprocess import call
 
 from lxml import html
 import requests
