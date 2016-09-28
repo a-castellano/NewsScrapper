@@ -7,6 +7,7 @@ import sys
 sys.path.append('../../')
 
 from lib.scrapper import Scrapper
+
 import codecs
 import re
 import time
@@ -17,12 +18,6 @@ from subprocess import call
 
 from lxml import html
 import requests
-
-from wordpress_xmlrpc import Client, WordPressPost
-from wordpress_xmlrpc.methods.posts import GetPosts, NewPost
-from wordpress_xmlrpc.methods.users import GetUserInfo
-from wordpress_xmlrpc.compat import xmlrpc_client
-from wordpress_xmlrpc.methods import media, posts
 
 class ScrapperWebsite1Economy( Scrapper ):
 
