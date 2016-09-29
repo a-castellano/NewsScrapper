@@ -9,8 +9,7 @@ from lib.db import DB
 from lib.scrapper import Scrapper
 
 from lib.scrapperFactory import ScrapperFactory
-
-
+from lib.scrappers import clarin_politica
 
 def main():
 
@@ -51,15 +50,31 @@ def main():
     for website in cfg.websitesConf:
         cfg.log.info( "[ Scrapper ] - [ Looking for \"{}\" sections ]".format( website ) )
         for section in cfg.websitesConf[website]:
-            # table name is the same as section name
+            # table name and type are the same as section name
             cfg.log.info( "[ Scrapper ] - [ Accesing to \"{}\" table ]".format( section ) )
             db.createTableIfNotExist( section )
-            cfg.log.info( "[ Scrapper  ] - [ Calling \"{}\" scrapper  ]".format( section ) )
+            cfg.log.info( "[ Scrapper ] - [ Calling \"{}\" scrapper ]".format( section ) )
 
-            #factory -> ( type, db, wpinfo, table, url, slug  )
-            scrapperInstance = scrapperFactory.factory( db, wpinfo, section, website, cfg.websitesConf[website][section]["url"], cfg.websitesConf[website][section]["slug"] )
-            print( scrapperInstance )
+            #factory -> ( type, db, wpinfo, table, url, slug, log )
+            scrapperInstance = scrapperFactory.factory( section, db, wpinfo, section, cfg.websitesConf[website][section]["url"], cfg.websitesConf[website][section]["slug"], cfg.log )
 
+            cfg.log.info( "[ Scrapper ] - [ \"{}\" scrapper begins ]".format( section ) )
+            scrapperInstance.scrape()
+            cfg.log.info( "[ Scrapper ] - [ \"{}\" scrapper has finished ]".format( section ) )
+
+            scrappedItems = scrapperInstance.numberOfItems()
+
+            cfg.log.info( "[ Scrapper ] - [ \"{}\" scrapper has scrapped {} new items ]".format( section, scrappedItems ) )
+
+            if scrappedItems:
+                cfg.log.info( "[ Scrapper \"{}\" ] - [ storing items into db ]".format( section ) )
+                scrapperInstance.addItemsToMysql()
+                cfg.log.info( "[ Scrapper \"{}\" ] - [ writting articles into Wordpress ]".format( section ) )
+                scrapperInstance.addItemsToWordpress()
+
+
+    cfg.log.info( "[ Scrapper ] - [ Bye ]" )
+                scrapperInstance.addItemsToWordpress()
 
 if __name__ == "__main__":
     main()

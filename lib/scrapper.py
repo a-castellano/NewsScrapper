@@ -11,9 +11,12 @@ from wordpress_xmlrpc.methods.users import GetUserInfo
 from wordpress_xmlrpc.compat import xmlrpc_client
 from wordpress_xmlrpc.methods import media, posts
 
+import time
+
 class Scrapper:
 
     def __init__( self, db, wpinfo, table, url, slug, log ):
+
         self.items = []
         self.db = db
         self.table = table
@@ -24,18 +27,30 @@ class Scrapper:
 
 ##############################################################################################################
 
-    def addItemsToMysql( self, items ):
+    def addItemsToMysql( self ):
+
         # Last items should be the older ones
         items = list( reversed( self.items ) )
         self.db.addData( self.table, items )
 
 ##############################################################################################################
 
+    def numberOfItems( self ):
+
+        return len( self.items )
+
+##############################################################################################################
+
     def addItemsToWordpress( self ):
+
         items = self.items
-        wp = Client('http://' + self.wpinfo['website']  + '/xmlrpc.php', self.wpinfo['user'], self.wpinfo['pass'])
+
+        if items:
+            wp = Client('http://' + self.wpinfo['website']  + '/xmlrpc.php', self.wpinfo['user'], self.wpinfo['pass'])
+            pass
+
         for item in items:
-            log.info("[ Scrapper   ] - [ Publishing \"{}\" into WP ]").format( item["title"] )
+            self.log.info("[ Scrapper {} ] - [ Publishing \"{}\" into WP ]".format( self.table, item["title"] ))
             now = time.strftime("%c")
             post = WordPressPost()
             post.terms_names = {
@@ -47,8 +62,8 @@ class Scrapper:
             if item['slug']:
                 post.slug = item['slug']
             if item['image_url']:
-                call(['curl',item['image_url'].replace(' ','%20'),'-o','image.jpg'])
-                filename = 'image.jpg'
+                call(['curl',item['image_url'].replace(' ','%20'),'-o','image.jpg.scrapper_data'])
+                filename = 'image.jpg.scrapper_data'
                 data = {
                     'name': 'image.jpg',
                     'type': 'image/jpeg',  # mimetype
@@ -70,6 +85,7 @@ class Scrapper:
 ##############################################################################################################
 
     def scrape( self ):
+
         pass
 
 ##############################################################################################################

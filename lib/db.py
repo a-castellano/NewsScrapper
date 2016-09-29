@@ -10,13 +10,18 @@ import sys
 class DB:
 
     def __init__( self, cfg ):
+
         self.log = cfg.log
         self.logError = cfg.logError
         self.error = False
         try:
             self.database = MySQLdb.connect(host=cfg.host, port=cfg.port, user=cfg.user, passwd=cfg.password, db=cfg.database)
             self.database.autocommit( True )
+            self.database.set_character_set('utf8')
             self.cursor = self.database.cursor()
+            self.cursor.execute('SET NAMES utf8;')
+            self.cursor.execute('SET CHARACTER SET utf8;')
+            self.cursor.execute('SET character_set_connection=utf8;')
             filterwarnings( 'ignore', category = MySQLdb.Warning )
             self.log.info( "[ Scrapper - DB  ] - [ Conection to database was successful  ]" )
 
@@ -40,7 +45,7 @@ class DB:
 
     def createTableIfNotExist( self, tableName ):
 
-        sql_create_table = "CREATE TABLE IF NOT EXISTS {} ( id INT(22) NOT NULL AUTO_INCREMENT, title VARCHAR(400), description VARCHAR(800), url VARCHAR(500) NOT NULL, image_url VARCHAR(500), video_url VARCHAR(500), content TEXT, slug VARCHAR(200), keywords VARCHAR(200), date DATETIME, PRIMARY KEY (id) )".format(tableName)
+        sql_create_table = "CREATE TABLE IF NOT EXISTS {} ( id INT(22) NOT NULL AUTO_INCREMENT, title VARCHAR(400), description VARCHAR(800), url VARCHAR(500) NOT NULL, image_url VARCHAR(500), video_url VARCHAR(500), content TEXT, slug VARCHAR(200), keywords VARCHAR(200), date DATETIME, PRIMARY KEY (id) ) ENGINE=MyISAM CHARACTER SET=utf8".format(tableName)
 
         self.cursor.execute( sql_create_table )
 
@@ -63,6 +68,7 @@ class DB:
         for item in data:
             self.log.info( "[ Scrapper - DB - {} ] - [ Inserting {} ]".format( tableName, item['title'] ) )
 
+
             try:
 
                 insert = 'INSERT INTO {} ( title, description, url, image_url, video_url, content, slug, keywords, date ) VALUES ( "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", NOW() ) '.format( tableName, item['title'], item['description'], item['url'], item['image_url'], item['video_url'], item['content'], item['slug'], item['keywords'] )
@@ -75,7 +81,7 @@ class DB:
                     self.cursor.execute( insert )
 
                 except:
-                    insert = 'INSERT INTO {} ( url , date ) VALUES ( "{}", NOW() ) '.format( self.table, item['url'] )
+                    insert = 'INSERT INTO {} ( url , date ) VALUES ( "{}", NOW() ) '.format( tableName, item['url'] )
                     self.cursor.execute( insert )
                     self.log.info( "[ Scrapper - DB - {} ] - [ Broken Item ]".format( tableName ) )
 
