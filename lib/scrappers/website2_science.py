@@ -20,3 +20,6 @@ class ScrapperWebsite2Science( Scrapper ):
     def __init__( self, db, wpinfo, table, url, slug, log ):
         Scrapper.__init__( self, db, wpinfo, table, url, slug, log )
 
+    def scrape( self ):
+        # Write your scrape function
+        pass

@@ -64,7 +64,7 @@ class DB:
 
     def addData( self, tableName, data ):
 
-        # Data is an array of dicts
+        # Data is scrapper.items
         for item in data:
             self.log.info( "[ Scrapper - DB - {} ] - [ Inserting {} ]".format( tableName, item['title'] ) )
 

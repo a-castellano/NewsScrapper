@@ -30,6 +30,8 @@ class Config:
 
     def readWebsitesConfig( self ):
 
+        # Gets required data from our conf file.
+
         website = ""
 
         for website in self.websites:
@@ -86,6 +88,9 @@ class Config:
 
 
     def readConfig( self ):
+
+        # Reads website configurations
+
         if (not self.cfg.read( self.file )):
             print ( "File {} not found".format(self.file) )
             return False
@@ -162,6 +167,9 @@ class Config:
 ##############################################################################################################
 
     def createLog(self):
+
+        #Create log files
+        
         LOGLEVEL = logging.DEBUG
         logFile = 'log/' + self.pathOutFile + '.' + datetime.now().strftime("%Y-%m-%d") + ".log";
         self.log = logging.getLogger('0')
@@ -180,4 +188,3 @@ class Config:
         logHandlerE.setFormatter(logFormatter2)
         self.logError.addHandler(logHandlerE)
         return True
-
