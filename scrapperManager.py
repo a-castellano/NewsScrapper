@@ -9,7 +9,6 @@ from lib.db import DB
 from lib.scrapper import Scrapper
 
 from lib.scrapperFactory import ScrapperFactory
-from lib.scrappers import clarin_politica
 
 def main():
 
