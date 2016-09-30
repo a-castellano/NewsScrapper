@@ -6,7 +6,7 @@ Each scrapper posts processed content inside a database defined in a config file
 The scrapped content will be published in a WordPress site too.
 
 # Table of Contents
-1. [Required software](# Required software)
+1. [Required software](#required--software)
 2. [Configuration files](# Configuration files)
 3. [Database Class](# Database Class)
 4. [Defining new scrappers](# Defining new scrappers)
@@ -14,7 +14,7 @@ The scrapped content will be published in a WordPress site too.
 6. [Example](# Example)
 7. [TODO](# TODO)
 
-## Required software (Ubuntu)
+## Required software
 
 This project needs the following packages to run:
 
