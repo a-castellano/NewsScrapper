@@ -13,13 +13,10 @@ import re
 import time
 import unicodedata
 
-from bs4 import BeautifulSoup
-
-from lxml import html
 import requests
 
 class ScrapperWebsite2Science( Scrapper ):
 
-    def __init__( self, db, wpinfo, table, url, slug ):
-        Scrapper.__init__( self, dbinfo,wpinfo, table, url, slug )
+    def __init__( self, db, wpinfo, table, url, slug, log ):
+        Scrapper.__init__( self, db, wpinfo, table, url, slug, log )
 
