@@ -1,6 +1,6 @@
 # NewsScrapper
 
-This project pretends to be a scrapper manager which scrape news from different websites. You have create your own scrappers from the parent class. The scrapper manager will call all of them.
+This project aims to be a scrapper manager which scrape news from different websites. You have create your own scrappers from the parent class. The scrapper manager will call all of them.
 
 Each scrapper posts processed content inside a database defined in a config file.
 The scrapped content will be published in a WordPress site too.
