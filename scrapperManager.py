@@ -73,7 +73,7 @@ def main():
                 scrapperInstance.addItemsToWordpress()
 
 
-    cfg.log.info( "[ Scrapper ] - [ Bye ]" )
+                cfg.log.info( "[ Scrapper ] - [ Bye ]" )
                 scrapperInstance.addItemsToWordpress()
 
 if __name__ == "__main__":
