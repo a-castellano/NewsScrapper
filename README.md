@@ -6,13 +6,13 @@ Each scrapper posts processed content inside a database defined in a config file
 The scrapped content will be published in a WordPress site too.
 
 # Table of Contents
-1. [Required software](#required--software)
-2. [Configuration files](# Configuration files)
-3. [Database Class](# Database Class)
-4. [Defining new scrappers](# Defining new scrappers)
-5. [Defining new scrappers](# Defining new scrappers)
-6. [Example](# Example)
-7. [TODO](# TODO)
+1. Required software
+2. Configuration files
+3. Database Class
+4. Defining new scrappers
+5. Defining new scrappers
+6. Example
+7. TODO
 
 ## Required software
 
@@ -179,10 +179,9 @@ class ScrapperFactory( object ):
 
 ## TODO
 
- - Finish the scrapper
- - Document this project ASAP.
  - Allow to set WordPress post categories name.
  - The WordPress client is http, it ccould be https too.
  - "Source" name should be able to change.
  - The origin "source" of the content should be optional.
  - Write argument parssing module to disable post submiting to WordPress.
+ - Dockerize this app
