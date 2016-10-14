@@ -9,7 +9,7 @@ The scrapped content will be published in a WordPress site too.
 1. Required software
 2. Configuration files
 3. Database Class
-4. Defining new scrappers
+4. Scrapper definition
 5. Defining new scrappers
 6. Example
 7. TODO
